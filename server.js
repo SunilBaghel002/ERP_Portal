@@ -35,10 +35,10 @@ cloudinary.config({
 
 // Ensure uploads directory exists
 const uploadDir = path.join(__dirname, "public/uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-  console.log("Created uploads directory:", uploadDir);
-}
+// if (!fs.existsSync(uploadDir)) {
+//   fs.mkdirSync(uploadDir, { recursive: true });
+//   console.log("Created uploads directory:", uploadDir);
+// }
 
 // Multer Setup for Local Storage (Temporary)
 const storage = multer.diskStorage({
