@@ -1,204 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ERP Portal - Verify OTP</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <style>
-      :root {
-        --primary-blue: #3b82f6;
-        --primary-purple: #8b5cf6;
-        --primary-teal: #06b6d4;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ERP Portal - Verify OTP</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-blue: #1e90ff;
+      --primary-teal: #14b8a6;
+      --primary-purple: #7c3aed;
+      --primary-pink: #ec4899;
+      --primary-indigo: #4f46e5;
+      --accent-orange: #f97316;
+      --bg-light: #f0f4f8;
+      --card-bg: #ffffff;
+      --text-dark: #1f2937;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-light);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      color: var(--text-dark);
+    }
+
+    .blob-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 28rem;
+      padding: 2rem;
+    }
+
+    .text-flow {
+      color: var(--text-dark);
+    }
+
+    .success-flow {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: var(--card-bg);
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      animation: slideInLeft 0.5s ease-out;
+    }
+
+    .error-flow {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: var(--card-bg);
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      animation: slideInLeft 0.5s ease-out;
+    }
+
+    .flowing-button {
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      color: var(--card-bg);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      animation: gradientFlow 3s ease infinite;
+      transition: background 0.3s ease;
+      position: relative;
+      min-width: 120px;
+    }
+
+    .flowing-button:active {
+      background: linear-gradient(135deg, var(--primary-teal), var(--primary-blue));
+    }
+
+    .flowing-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .flowing-button.loading::after {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--card-bg);
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 0.5rem;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
       }
 
-      body {
-        font-family: "Poppins", sans-serif;
-        background: linear-gradient(135deg, #164172 0%, #3d5f75 100%);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow-x: hidden;
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
       }
 
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    @keyframes slideInLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .zoom-in {
+      animation: zoomIn 1s ease-out forwards;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    @keyframes zoomIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    input {
+      background: var(--card-bg);
+      border: 1px solid #e5e7eb;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.3s ease;
+      border-radius: 8px;
+    }
+
+    input:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    .link-button {
+      color: var(--primary-blue);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .link-button:active {
+      color: var(--primary-teal);
+    }
+
+    @media (max-width: 640px) {
       .blob-card {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border-radius: 50px 30px;
-        transform: rotate(-1deg);
-        width: 100%;
-        max-width: 28rem;
-        padding: 2rem;
-      }
-
-      .blob-card:hover {
-        transform: translateY(-15px) scale(1.02) rotate(-1deg);
-        box-shadow: 0 35px 70px rgba(0, 0, 0, 0.15);
-      }
-
-      .text-flow {
-        color: white;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      }
-
-      .error-flow {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 30px;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-        animation: slideInLeft 0.5s ease-out;
+        padding: 1.5rem;
       }
 
       .flowing-button {
-        background: linear-gradient(
-          135deg,
-          var(--primary-blue),
-          var(--primary-purple),
-          var(--primary-teal)
-        );
-        background-size: 200% 200%;
-        border: none;
-        border-radius: 50px;
-        padding: 0.75rem 1.5rem;
-        color: white;
-        font-weight: 600;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.4s ease;
-        animation: gradientFlow 3s ease infinite;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
       }
+    }
+  </style>
+</head>
 
-      @keyframes gradientFlow {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-
-      .flowing-button:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
-      }
-
-      .slide-in-left {
-        animation: slideInLeft 0.8s ease-out forwards;
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-
-      @keyframes slideInLeft {
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      input {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
-        outline: none;
-        transition: all 0.3s ease;
-      }
-
-      input:focus {
-        border-color: var(--primary-blue);
-        box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-      }
-
-      input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
-
-      .link-button {
-        color: var(--primary-blue);
-        cursor: pointer;
-        transition: color 0.3s ease;
-      }
-
-      .link-button:hover {
-        color: var(--primary-purple);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="blob-card slide-in-left">
-      <div class="p-4">
-        <h2 class="text-2xl font-bold text-flow text-center mb-6">
-          Verify OTP
-        </h2>
-        <% if (error) { %>
-        <div class="error-flow slide-in-left" id="error-message">
+<body>
+  <div class="blob-card slide-in-left">
+    <div class="p-4 zoom-in">
+      <h2 class="text-3xl font-bold text-flow text-center mb-6">
+        Verify OTP
+      </h2>
+      <% if (typeof success !=='undefined' && success) { %>
+        <div class="success-flow slide-in-left" id="success-message">
           <div class="flex items-center">
-            <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
-            <span class="font-semibold text-lg"><%= error %></span>
+            <i class="fas fa-check-circle text-2xl mr-4"></i>
+            <span class="font-semibold text-lg">
+              <%= success %>
+            </span>
           </div>
-          <button
-            class="text-white hover:text-gray-200"
-            onclick="dismissMessage()"
-            aria-label="Close error message"
-          >
+          <button class="text-white hover:text-gray-200" onclick="dismissMessage('success-message')"
+            aria-label="Close success message">
             <i class="fas fa-times"></i>
           </button>
         </div>
         <% } %>
-        <form action="/verify-otp" method="POST" class="space-y-4">
-          <input type="hidden" name="email" value="<%= email %>" />
-          <input
-            type="text"
-            name="otp"
-            placeholder="Enter OTP"
-            required
-            class="w-full px-4 py-2 rounded-lg"
-          />
-          <button
-            type="submit"
-            class="flowing-button w-full"
-            aria-label="Submit OTP verification form"
-          >
-            Verify
-          </button>
-        </form>
-        <p class="text-center mt-4 text-flow">
-          <a href="/forgot-password" class="link-button">Resend OTP</a>
-        </p>
-      </div>
+          <% if (typeof error !=='undefined' && error) { %>
+            <div class="error-flow slide-in-left" id="error-message">
+              <div class="flex items-center">
+                <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
+                <span class="font-semibold text-lg">
+                  <%= error %>
+                </span>
+              </div>
+              <button class="text-white hover:text-gray-200" onclick="dismissMessage('error-message')"
+                aria-label="Close error message">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <% } %>
+              <form action="/verify-otp" method="POST" class="space-y-4" id="verifyOtpForm">
+                <input type="hidden" name="email" value="<%= typeof email !== 'undefined' ? email : '' %>" />
+                <div>
+                  <label for="otp" class="text-flow text-sm font-medium mb-1 block">
+                    OTP Code
+                  </label>
+                  <input type="text" name="otp" id="otp" placeholder="Enter 6-digit OTP" required maxlength="6"
+                    class="w-full px-4 py-2" />
+                </div>
+                <button type="submit" class="flowing-button w-full" id="verifyButton"
+                  aria-label="Submit OTP verification form">
+                  Verify
+                </button>
+              </form>
+              <p class="text-center mt-4 text-flow">
+                <a href="/forgot-password" class="link-button" aria-label="Resend OTP">Resend OTP</a>
+              </p>
     </div>
+  </div>
 
-    <script>
-      function dismissMessage() {
-        const message = document.getElementById("error-message");
-        if (message) {
-          message.style.transition = "opacity 0.5s ease";
-          message.style.opacity = "0";
-          setTimeout(() => message.remove(), 500);
-        }
+  <script>
+    function dismissMessage(id) {
+      const message = document.getElementById(id);
+      if (message) {
+        message.style.transition = "opacity 0.5s ease";
+        message.style.opacity = "0";
+        setTimeout(() => message.remove(), 500);
+        console.log(`Dismissed message: ${id}`);
       }
-    </script>
-  </body>
+    }
+
+    if (document.getElementById("success-message")) {
+      setTimeout(() => dismissMessage("success-message"), 5000);
+    }
+    if (document.getElementById("error-message")) {
+      setTimeout(() => dismissMessage("error-message"), 5000);
+    }
+
+    document
+      .getElementById("verifyOtpForm")
+      .addEventListener("submit", (e) => {
+        const otpInput = document.querySelector("input[name='otp']");
+        const emailInput = document.querySelector("input[name='email']");
+        const verifyButton = document.getElementById("verifyButton");
+        const otp = otpInput ? otpInput.value.trim() : "";
+        const email = emailInput ? emailInput.value : "";
+        let errorMessage = null;
+
+        if (!email) {
+          errorMessage = "Email is required";
+        } else if (!/^\d{6}$/.test(otp)) {
+          errorMessage = "OTP must be a 6-digit number";
+        }
+
+        if (errorMessage) {
+          e.preventDefault();
+          const existingError = document.getElementById("error-message");
+          if (!existingError) {
+            const errorDiv = document.createElement("div");
+            errorDiv.id = "error-message";
+            errorDiv.className = "error-flow slide-in-left";
+            errorDiv.innerHTML = `
+                <div class="flex items-center">
+                  <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
+                  <span class="font-semibold text-lg">${errorMessage}</span>
+                </div>
+                <button class="text-white hover:text-gray-200" onclick="dismissMessage('error-message')" aria-label="Close error message">
+                  <i class="fas fa-times"></i>
+                </button>
+              `;
+            const form = document.getElementById("verifyOtpForm");
+            form.parentNode.insertBefore(errorDiv, form);
+            setTimeout(() => dismissMessage("error-message"), 5000);
+            console.log(`Validation error: ${errorMessage}`);
+          }
+        } else {
+          if (verifyButton) {
+            verifyButton.disabled = true;
+            verifyButton.classList.add("loading");
+            verifyButton.innerHTML = "Verifying...";
+            console.log("Form submitted with email:", email, "and OTP:", otp);
+          }
+        }
+      });
+
+    // Log link clicks for debugging
+    const linkButton = document.querySelector(".link-button");
+    if (linkButton) {
+      linkButton.addEventListener("click", () => {
+        console.log("Clicked: Resend OTP");
+      });
+    }
+  </script>
+</body>
+
 </html>
