@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ERP Portal - Welcome</title>
+  <title>ERP Portal - Empowering Education</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
@@ -58,14 +60,32 @@
     }
 
     .hero-section {
-      min-height: 60vh;
+      min-height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       position: relative;
-      margin-top: 3rem;
+      background: url('https://via.placeholder.com/1200x600?text=Classroom+Hero') no-repeat center center/cover;
+      background-attachment: fixed;
       margin-bottom: 3rem;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
     }
 
     .blob-card {
@@ -77,9 +97,18 @@
       padding: 2rem;
     }
 
-    .feature-icon {
+    .feature-icon,
+    .benefit-icon {
       font-size: 2.5rem;
       color: var(--primary-teal);
+      margin-bottom: 1rem;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: url('https://via.placeholder.com/60?text=User') no-repeat center center/cover;
       margin-bottom: 1rem;
     }
 
@@ -115,17 +144,50 @@
       cursor: not-allowed;
     }
 
+    .secondary-button {
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-pink));
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 2rem;
+      color: var(--card-bg);
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      animation: gradientFlow 3s ease infinite;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 120px;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .secondary-button:active {
+      background: linear-gradient(135deg, var(--primary-pink), var(--primary-indigo));
+    }
+
     @media (max-width: 640px) {
-      .flowing-button {
+
+      .flowing-button,
+      .secondary-button {
         padding: 0.75rem 1.5rem;
         font-size: 1rem;
       }
     }
 
     @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
     .slide-in-left {
@@ -135,7 +197,10 @@
     }
 
     @keyframes slideInLeft {
-      to { opacity: 1; transform: translateX(0); }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .slide-in-right {
@@ -145,7 +210,10 @@
     }
 
     @keyframes slideInRight {
-      to { opacity: 1; transform: translateX(0); }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .zoom-in {
@@ -155,7 +223,10 @@
     }
 
     @keyframes zoomIn {
-      to { opacity: 1; transform: scale(1); }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .success-flow {
@@ -194,10 +265,11 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <header class="header py-4 px-6 flex justify-between items-center slide-in-left">
-    <h1 class="text-2xl font-bold text-flow">ERP Portal</h1>
+    <h1 class="text-2xl font-bold text-flow">EduSync ERP</h1>
     <nav class="slide-in-right">
       <a href="/login" class="flowing-button" aria-label="Go to login page">
         <i class="fas fa-sign-in-alt"></i> Login
@@ -207,120 +279,219 @@
 
   <!-- Main Content -->
   <main class="container">
-    <% if (typeof success !== 'undefined' && success) { %>
-    <div class="success-flow zoom-in" id="success-message">
-      <div class="flex items-center">
-        <i class="fas fa-check-circle text-2xl mr-4"></i>
-        <span class="font-semibold text-lg"><%= success %></span>
-      </div>
-      <button
-        class="text-white hover:text-gray-200"
-        onclick="dismissMessage('success-message')"
-        aria-label="Close success message"
-      >
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <% } %>
-    <% if (typeof error !== 'undefined' && error) { %>
-    <div class="error-flow zoom-in" id="error-message">
-      <div class="flex items-center">
-        <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
-        <span class="font-semibold text-lg"><%= error %></span>
-      </div>
-      <button
-        class="text-white hover:text-gray-200"
-        onclick="dismissMessage('error-message')"
-        aria-label="Close error message"
-      >
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <% } %>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="text-center zoom-in">
-        <h2 class="text-5xl font-bold text-flow mb-4">
-          Welcome to the Future of Academic Management
-        </h2>
-        <p class="text-xl text-flow opacity-90 mb-6 max-w-2xl mx-auto">
-          Streamline your academic journey with our intuitive ERP Portal. Manage records, track attendance, and stay connected seamlessly.
-        </p>
-        <a href="/login" class="flowing-button" aria-label="Get started with ERP Portal">
-          <i class="fas fa-rocket"></i> Get Started
-        </a>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-12">
-      <h3 class="text-3xl font-bold text-flow text-center mb-8 slide-in-left">
-        Why Choose Our ERP Portal?
-      </h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="blob-card slide-in-left">
-          <i class="fas fa-users feature-icon"></i>
-          <h4 class="text-xl font-semibold text-flow mb-2">Student Management</h4>
-          <p class="text-flow">
-            Easily manage student profiles, courses, and academic records in one place.
-          </p>
+    <% if (typeof success !=='undefined' && success) { %>
+      <div class="success-flow zoom-in" id="success-message">
+        <div class="flex items-center">
+          <i class="fas fa-check-circle text-2xl mr-4"></i>
+          <span class="font-semibold text-lg">
+            <%= success %>
+          </span>
         </div>
-        <div class="blob-card zoom-in">
-          <i class="fas fa-calendar-check feature-icon"></i>
-          <h4 class="text-xl font-semibold text-flow mb-2">Attendance Tracking</h4>
-          <p class="text-flow">
-            Monitor attendance with real-time updates and detailed reports.
-          </p>
-        </div>
-        <div class="blob-card slide-in-right">
-          <i class="fas fa-file-upload feature-icon"></i>
-          <h4 class="text-xl font-semibold text-flow mb-2">Document Upload</h4>
-          <p class="text-flow">
-            Securely upload and access academic documents anytime, anywhere.
-          </p>
-        </div>
+        <button class="text-white hover:text-gray-200" onclick="dismissMessage('success-message')"
+          aria-label="Close success message">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-    </section>
+      <% } %>
+        <% if (typeof error !=='undefined' && error) { %>
+          <div class="error-flow zoom-in" id="error-message">
+            <div class="flex items-center">
+              <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
+              <span class="font-semibold text-lg">
+                <%= error %>
+              </span>
+            </div>
+            <button class="text-white hover:text-gray-200" onclick="dismissMessage('error-message')"
+              aria-label="Close error message">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <% } %>
 
-    <!-- CTA Section -->
-    <section class="py-12">
-      <div class="blob-card text-center zoom-in">
-        <h3 class="text-3xl font-bold text-flow mb-4">
-          Ready to Transform Your Academic Experience?
-        </h3>
-        <p class="text-lg text-flow mb-6 max-w-xl mx-auto">
-          Join thousands of students and administrators using our ERP Portal to simplify academic management.
-        </p>
-        <a href="/login" class="flowing-button" aria-label="Join now">
-          <i class="fas fa-sign-in-alt"></i> Join Now
-        </a>
-      </div>
-    </section>
+            <!-- Hero Section -->
+            <section class="hero-section">
+              <div class="hero-content text-center zoom-in">
+                <h2 class="text-5xl font-bold text-flow text-white mb-4">
+                  Empowering Education with EduSync ERP
+                </h2>
+                <p class="text-xl text-white opacity-90 mb-6 max-w-2xl mx-auto">
+                  Streamline academic management for schools, colleges, and coaching institutes with our intuitive ERP
+                  platform.
+                </p>
+                <div class="flex justify-center gap-4">
+                  <a href="/login" class="flowing-button" aria-label="Get started with EduSync ERP">
+                    <i class="fas fa-rocket"></i> Get Started
+                  </a>
+                  <a href="#features" class="secondary-button" aria-label="Learn more about EduSync ERP">
+                    <i class="fas fa-info-circle"></i> Learn More
+                  </a>
+                </div>
+              </div>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features" class="py-12">
+              <h3 class="text-3xl font-bold text-flow text-center mb-8 slide-in-left">
+                Key Features for Academic Success
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="blob-card slide-in-left">
+                  <i class="fas fa-users feature-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Student Management</h4>
+                  <p class="text-flow">
+                    Manage student profiles, enrollments, and academic records seamlessly.
+                  </p>
+                </div>
+                <div class="blob-card zoom-in">
+                  <i class="fas fa-calendar-check feature-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Attendance Tracking</h4>
+                  <p class="text-flow">
+                    Monitor attendance with real-time updates and detailed reports.
+                  </p>
+                </div>
+                <div class="blob-card slide-in-right">
+                  <i class="fas fa-file-upload feature-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Document Management</h4>
+                  <p class="text-flow">
+                    Securely upload and access academic documents anytime, anywhere.
+                  </p>
+                </div>
+                <div class="blob-card slide-in-left">
+                  <i class="fas fa-graduation-cap feature-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Grade Reporting</h4>
+                  <p class="text-flow">
+                    Generate and share grade reports effortlessly for students and parents.
+                  </p>
+                </div>
+                <div class="blob-card zoom-in">
+                  <i class="fas fa-comments feature-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Parent Communication</h4>
+                  <p class="text-flow">
+                    Keep parents informed with notifications and progress updates.
+                  </p>
+                </div>
+                <div class="blob-card slide-in-right">
+                  <i class="fas fa-chart-line feature-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Analytics Dashboard</h4>
+                  <p class="text-flow">
+                    Gain insights with powerful analytics for better decision-making.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="py-12">
+              <h3 class="text-3xl font-bold text-flow text-center mb-8 slide-in-left">
+                What Our Users Say
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="blob-card slide-in-left">
+                  <div class="avatar"></div>
+                  <p class="text-flow italic mb-2">
+                    "EduSync ERP has transformed how we manage student records. It's intuitive and saves us hours!"
+                  </p>
+                  <p class="text-flow font-semibold">— Sarah T., School Administrator</p>
+                </div>
+                <div class="blob-card zoom-in">
+                  <div class="avatar"></div>
+                  <p class="text-flow italic mb-2">
+                    "Tracking attendance and grades is so easy now. This platform is a game-changer!"
+                  </p>
+                  <p class="text-flow font-semibold">— John M., Teacher</p>
+                </div>
+                <div class="blob-card slide-in-right">
+                  <div class="avatar"></div>
+                  <p class="text-flow italic mb-2">
+                    "I love how I can access my documents and grades anytime. Highly recommend!"
+                  </p>
+                  <p class="text-flow font-semibold">— Priya S., Student</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Benefits Section -->
+            <section class="py-12">
+              <h3 class="text-3xl font-bold text-flow text-center mb-8 slide-in-left">
+                Why EduSync ERP?
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="blob-card slide-in-left">
+                  <i class="fas fa-clock benefit-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Save Time</h4>
+                  <p class="text-flow">
+                    Automate administrative tasks to focus on teaching and learning.
+                  </p>
+                </div>
+                <div class="blob-card zoom-in">
+                  <i class="fas fa-lock benefit-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Secure Data</h4>
+                  <p class="text-flow">
+                    Keep sensitive information safe with top-tier security measures.
+                  </p>
+                </div>
+                <div class="blob-card slide-in-right">
+                  <i class="fas fa-mobile-alt benefit-icon"></i>
+                  <h4 class="text-xl font-semibold text-flow mb-2">Easy Access</h4>
+                  <p class="text-flow">
+                    Access the platform from any device, anytime, anywhere.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-12">
+              <div class="blob-card text-center zoom-in">
+                <h3 class="text-3xl font-bold text-flow mb-4">
+                  Transform Your Academic Experience
+                </h3>
+                <p class="text-lg text-flow mb-6 max-w-xl mx-auto">
+                  Join thousands of educators and students using EduSync ERP to simplify academic management.
+                </p>
+                <a href="/login" class="flowing-button" aria-label="Join EduSync ERP now">
+                  <i class="fas fa-sign-in-alt"></i> Join Now
+                </a>
+              </div>
+            </section>
   </main>
 
   <!-- Footer -->
   <footer class="py-6 px-4 bg-white border-t border-gray-200">
-    <div class="container text-center">
-      <p class="text-flow mb-4">
-        © <%= new Date().getFullYear() %> ERP Portal. All rights reserved.
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center md:text-left">
+          <h4 class="text-lg font-semibold text-flow mb-4">EduSync ERP</h4>
+          <p class="text-flow">
+            Empowering schools, colleges, and coaching institutes with seamless academic management.
+          </p>
+        </div>
+        <div class="text-center">
+          <h4 class="text-lg font-semibold text-flow mb-4">Quick Links</h4>
+          <div class="flex flex-col space-y-2">
+            <a href="/login" class="footer-link" aria-label="Go to login page">Login</a>
+            <a href="/privacy" class="footer-link" aria-label="View privacy policy">Privacy Policy</a>
+            <a href="/terms" class="footer-link" aria-label="View terms of service">Terms of Service</a>
+          </div>
+        </div>
+        <div class="text-center md:text-right">
+          <h4 class="text-lg font-semibold text-flow mb-4">Stay Connected</h4>
+          <div class="flex justify-center md:justify-end space-x-4">
+            <a href="https://facebook.com" class="footer-link" aria-label="Visit our Facebook page">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com" class="footer-link" aria-label="Visit our Twitter page">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://linkedin.com" class="footer-link" aria-label="Visit our LinkedIn page">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-flow mt-6">
+        © <%= new Date().getFullYear() %> EduSync ERP. All rights reserved.
       </p>
-      <div class="flex justify-center space-x-4 mb-4">
-        <a href="/login" class="footer-link" aria-label="Go to login page">Login</a>
-        <a href="/privacy" class="footer-link" aria-label="View privacy policy">Privacy Policy</a>
-        <a href="/terms" class="footer-link" aria-label="View terms of service">Terms of Service</a>
-      </div>
-      <div class="flex justify-center space-x-4">
-        <a href="https://facebook.com" class="footer-link" aria-label="Visit our Facebook page">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://twitter.com" class="footer-link" aria-label="Visit our Twitter page">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="https://linkedin.com" class="footer-link" aria-label="Visit our LinkedIn page">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </div>
     </div>
   </footer>
 
@@ -363,7 +534,7 @@
       elements.forEach((el) => observer.observe(el));
 
       // Log button clicks for debugging
-      const buttons = document.querySelectorAll(".flowing-button, .footer-link");
+      const buttons = document.querySelectorAll(".flowing-button, .secondary-button, .footer-link");
       buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
           console.log(`Clicked: ${btn.getAttribute("aria-label")}`);
@@ -372,4 +543,5 @@
     });
   </script>
 </body>
+
 </html>
