@@ -38,16 +38,16 @@
     }
 
     .icon-bubble {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--card-bg);
-      font-size: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      font-size: 1.25rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     .sidebar {
@@ -59,7 +59,6 @@
       background: var(--card-bg);
       border-right: 1px solid #e5e7eb;
       padding: 1.5rem 1rem;
-      /* Reduced padding for mobile */
       z-index: 1000;
       transition: transform 0.3s ease;
     }
@@ -76,7 +75,6 @@
       background: var(--primary-blue);
       color: var(--card-bg);
       padding: 0.75rem;
-      /* Larger touch target */
       border-radius: 50%;
       cursor: pointer;
       display: none;
@@ -94,9 +92,8 @@
 
     @media (max-width: 768px) {
       .sidebar {
-        transform: translateX(-100%);
+        width: 200px;
         padding: 1rem 0.5rem;
-        /* Further reduced padding */
       }
 
       .sidebar.active {
@@ -106,6 +103,18 @@
       .sidebar-toggle,
       .sidebar-close {
         display: block;
+      }
+
+      .icon-bubble {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 180px;
       }
     }
 
@@ -118,6 +127,7 @@
       border-radius: 10px;
       margin-bottom: 0.5rem;
       transition: all 0.3s ease;
+      font-size: 0.9rem;
     }
 
     .sidebar-nav a:hover,
@@ -144,49 +154,39 @@
     @media (max-width: 768px) {
       .morphing-container {
         margin-left: 0;
-        margin-top: 1.5rem;
+        margin-top: 4rem;
         padding: 1rem;
       }
     }
 
     .organic-header,
     .teachers-section {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     .blob-card {
       background: var(--card-bg);
       border-radius: 15px;
       box-shadow: var(--shadow);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
 
     .blob-card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .blob-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(30, 144, 255, 0.2) 0%, transparent 70%);
-      transition: transform 0.5s ease;
-      transform: scale(0);
-      z-index: 0;
-    }
-
-    .blob-card:hover::before {
-      transform: scale(1) rotate(45deg);
+      transform: translateY(-5px);
+      background: linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(20, 184, 166, 0.1));
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     }
 
     .teachers-blob {
-      padding: 2.5rem;
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .teachers-blob {
+        padding: 1.5rem;
+      }
     }
 
     .text-flow {
@@ -229,7 +229,7 @@
     }
 
     .teacher-item:hover {
-      background: #f9fafb;
+      background: linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(20, 184, 166, 0.1));
       transform: translateX(5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
@@ -242,12 +242,7 @@
 
       .teacher-item:hover {
         transform: none;
-        /* Disable translate on mobile */
       }
-    }
-
-    .teacher-item:not(:last-child) {
-      border-bottom: 1px solid #e5e7eb;
     }
 
     .teacher-details p {
@@ -256,7 +251,6 @@
 
     .teacher-details .teacher-name {
       font-size: 1.125rem;
-      /* Larger for emphasis */
       font-weight: 600;
     }
 
@@ -265,9 +259,18 @@
       color: #6b7280;
     }
 
+    @media (max-width: 768px) {
+      .teacher-details .teacher-name {
+        font-size: 1rem;
+      }
+
+      .teacher-details .teacher-info {
+        font-size: 0.75rem;
+      }
+    }
+
     .flowing-button {
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
-      background-size: 200% 200%;
       border: none;
       border-radius: 50px;
       padding: 0.75rem 1.5rem;
@@ -276,42 +279,28 @@
       font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s ease;
-      animation: gradientFlow 3s ease infinite;
       min-width: 120px;
-      /* Larger touch target */
       text-align: center;
     }
 
     .flowing-button:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     @media (max-width: 768px) {
       .flowing-button {
         padding: 0.5rem 1rem;
         font-size: 0.875rem;
-      }
-    }
-
-    @keyframes gradientFlow {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
+        min-width: 100px;
       }
     }
 
     .success-flow {
       background: linear-gradient(135deg, #10b981, #059669);
       color: var(--card-bg);
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
       border-radius: 30px;
       margin-bottom: 1.5rem;
       display: flex;
@@ -324,7 +313,7 @@
     .error-flow {
       background: linear-gradient(135deg, #ef4444, #dc2626);
       color: var(--card-bg);
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
       border-radius: 30px;
       margin-bottom: 1.5rem;
       display: flex;
@@ -332,6 +321,15 @@
       justify-content: space-between;
       box-shadow: var(--shadow);
       animation: fadeInFlow 0.5s ease-out;
+    }
+
+    @media (max-width: 768px) {
+
+      .success-flow,
+      .error-flow {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+      }
     }
   </style>
 </head>
@@ -344,14 +342,14 @@
 
     <div class="morphing-container">
       <header class="organic-header fade-in-flow">
-        <div class="px-8 py-6">
-          <div class="flex items-center">
-            <div class="icon-bubble mr-6">
+        <div class="px-6 py-4">
+          <div class="flex items-center flex-wrap gap-4">
+            <div class="icon-bubble mr-4">
               <i class="fas fa-chalkboard-teacher"></i>
             </div>
             <div>
-              <h1 class="text-4xl font-bold text-flow">Your Teachers</h1>
-              <p class="text-flow opacity-90 text-xl">Meet your mentors</p>
+              <h1 class="text-3xl font-bold text-flow">Your Teachers</h1>
+              <p class="text-flow opacity-90 text-lg">Meet your mentors</p>
             </div>
           </div>
         </div>
@@ -359,46 +357,46 @@
 
       <main class="flowing-grid">
         <% if (typeof success !=='undefined' && success) { %>
-          <div class="success-flow fade-in-flow" id="success-message">
+          <div class="success-flow fade in-flow" id="success-message">
             <div class="flex items-center">
-              <i class="fas fa-check-circle text-2xl mr-4"></i>
-              <span class="font-semibold text-lg">
+              <i class="fas fa-check-circle text-xl mr-3"></i>
+              <span class="font-semibold text-base">
                 <%= success %>
               </span>
             </div>
-            <button class="text-white hover:text-gray-200" onclick="dismissMessage('success-message')"
+            <button class="flowing-button" onclick="dismissMessage('success-message')"
               aria-label="Close success message">
-              <i class="fas fa-times"></i>
+              <i class="fas fa-times"></i> Close
             </button>
           </div>
           <% } %>
             <% if (typeof error !=='undefined' && error) { %>
               <div class="error-flow fade-in-flow" id="error-message">
                 <div class="flex items-center">
-                  <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
-                  <span class="font-semibold text-lg">
+                  <i class="fas fa-exclamation-circle text-xl mr-3"></i>
+                  <span class="font-semibold text-base">
                     <%= error %>
                   </span>
                 </div>
-                <button class="text-white hover:text-gray-200" onclick="dismissMessage('error-message')"
+                <button class="flowing-button" onclick="dismissMessage('error-message')"
                   aria-label="Close error message">
-                  <i class="fas fa-times"></i>
+                  <i class="fas fa-times"></i> Close
                 </button>
               </div>
               <% } %>
                 <section class="teachers-section">
                   <div class="blob-card teachers-blob slide-in-left">
-                    <div class="p-8">
+                    <div class="p-6">
                       <h3 class="text-2xl font-bold text-flow mb-6">Assigned Teachers</h3>
                       <div class="teachers-flow">
                         <% if (!user || !user.teachers || user.teachers.length===0) { %>
-                          <p class="text-flow text-center opacity-70 text-lg">No teachers assigned</p>
+                          <p class="text-flow text-center opacity-70 text-base">No teachers assigned</p>
                           <% } else { %>
                             <% user.teachers.forEach((teacher, index)=> { %>
                               <article class="teacher-item text-flow">
                                 <div class="flex items-center justify-between flex-wrap gap-4">
-                                  <div class="flex items-center">
-                                    <i class="fas fa-chalkboard-teacher text-primary-blue text-xl mr-4"></i>
+                                  <div class="flex items-center flex-1 min-w-0">
+                                    <i class="fas fa-chalkboard-teacher text-primary-blue text-lg mr-3"></i>
                                     <div class="teacher-details">
                                       <% if (teacher && teacher.teacherId && teacher.teacherId.name) { %>
                                         <p class="teacher-name">
@@ -465,6 +463,16 @@
       if (document.getElementById("error-message")) {
         setTimeout(() => dismissMessage("error-message"), 5000);
       }
+
+      // Ensure all buttons are clickable
+      document.querySelectorAll('.flowing-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const href = button.getAttribute('href');
+          if (href) {
+            window.location.href = href;
+          }
+        });
+      });
     </script>
 </body>
 

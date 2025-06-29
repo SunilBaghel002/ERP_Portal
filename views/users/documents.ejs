@@ -11,16 +11,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
-      --primary-blue: #1e90ff;
-      --primary-purple: #7c3aed;
-      --primary-teal: #14b8a6;
+      --primary-blue: #3b82f6;
+      --primary-purple: #6d28d9;
+      --primary-teal: #2dd4bf;
       --primary-pink: #ec4899;
       --primary-indigo: #4f46e5;
       --accent-orange: #f97316;
-      --bg-light: #f0f4f8;
+      --bg-light: #f8fafc;
       --card-bg: #ffffff;
-      --text-dark: #1f2937;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --text-dark: #111827;
+      --text-muted: #6b7280;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --border: #e5e7eb;
     }
 
     * {
@@ -33,31 +35,30 @@
       font-family: "Poppins", sans-serif;
       background: var(--bg-light);
       min-height: 100vh;
-      overflow-x: hidden;
       color: var(--text-dark);
     }
 
     .icon-bubble {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--card-bg);
-      font-size: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      font-size: 1.25rem;
+      box-shadow: var(--shadow);
     }
 
     .sidebar {
       position: fixed;
       top: 0;
       left: 0;
-      width: 250px;
+      width: 240px;
       height: 100%;
       background: var(--card-bg);
-      border-right: 1px solid #e5e7eb;
+      border-right: 1px solid var(--border);
       padding: 1.5rem 1rem;
       z-index: 1000;
       transition: transform 0.3s ease;
@@ -78,6 +79,7 @@
       border-radius: 50%;
       cursor: pointer;
       display: none;
+      box-shadow: var(--shadow);
     }
 
     .sidebar-close {
@@ -92,8 +94,8 @@
 
     @media (max-width: 768px) {
       .sidebar {
-        transform: translateX(-100%);
-        padding: 1rem 0.5rem;
+        width: 200px;
+        padding: 1rem 0.75rem;
       }
 
       .sidebar.active {
@@ -104,6 +106,18 @@
       .sidebar-close {
         display: block;
       }
+
+      .icon-bubble {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 180px;
+      }
     }
 
     .sidebar-nav a {
@@ -112,15 +126,16 @@
       padding: 0.75rem 1rem;
       color: var(--text-dark);
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 8px;
       margin-bottom: 0.5rem;
       transition: all 0.3s ease;
+      font-size: 0.95rem;
     }
 
     .sidebar-nav a:hover,
     .sidebar-nav a.active {
       background: var(--bg-light);
-      transform: translateX(5px);
+      transform: translateX(4px);
     }
 
     .sidebar-nav a i {
@@ -130,9 +145,9 @@
 
     .morphing-container {
       margin-left: 260px;
-      margin-top: 3rem;
-      padding: 2rem 1.5rem;
-      max-width: 1200px;
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
       transition: margin-left 0.3s ease;
@@ -141,49 +156,38 @@
     @media (max-width: 768px) {
       .morphing-container {
         margin-left: 0;
-        margin-top: 1.5rem;
+        margin-top: 4rem;
         padding: 1rem;
       }
     }
 
     .organic-header,
     .documents-section {
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
     }
 
     .blob-card {
       background: var(--card-bg);
-      border-radius: 15px;
+      border-radius: 12px;
       box-shadow: var(--shadow);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
     }
 
     .blob-card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .blob-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(30, 144, 255, 0.2) 0%, transparent 70%);
-      transition: transform 0.5s ease;
-      transform: scale(0);
-      z-index: 0;
-    }
-
-    .blob-card:hover::before {
-      transform: scale(1) rotate(45deg);
+      transform: translateY(-4px);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(45, 212, 191, 0.05));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     .documents-blob {
-      padding: 2.5rem;
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .documents-blob {
+        padding: 1rem;
+      }
     }
 
     .text-flow {
@@ -191,14 +195,14 @@
     }
 
     .fade-in-flow {
-      animation: fadeInFlow 1s ease-out forwards;
+      animation: fadeInFlow 0.8s ease-out forwards;
       opacity: 0;
     }
 
     .slide-in-left {
       animation: slideInLeft 0.8s ease-out forwards;
       opacity: 0;
-      transform: translateX(-50px);
+      transform: translateX(-30px);
     }
 
     @keyframes fadeInFlow {
@@ -218,6 +222,7 @@
       overflow-x: auto;
       border-radius: 10px;
       background: var(--card-bg);
+      border: 1px solid var(--border);
     }
 
     table {
@@ -234,16 +239,16 @@
 
     th,
     td {
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       text-align: left;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid var(--border);
       color: var(--text-dark);
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     th {
       font-weight: 600;
-      cursor: pointer;
+      color: var(--text-dark);
     }
 
     tr:nth-child(even) {
@@ -251,22 +256,22 @@
     }
 
     tr:hover {
-      background: #f1f5f9;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(45, 212, 191, 0.05));
     }
 
     .document-card {
       display: none;
       background: var(--card-bg);
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       padding: 1rem;
       margin-bottom: 0.75rem;
-      position: relative;
-      z-index: 1;
+      transition: all 0.3s ease;
     }
 
-    .document-card:not(:last-child) {
-      border-bottom: 1px solid #e5e7eb;
+    .document-card:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(45, 212, 191, 0.05));
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     }
 
     @media (max-width: 768px) {
@@ -277,86 +282,63 @@
       .document-card {
         display: block;
       }
+
+      th,
+      td {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      th,
+      td {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+      }
     }
 
     .flowing-button {
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
-      background-size: 200% 200%;
       border: none;
-      border-radius: 50px;
+      border-radius: 8px;
       padding: 0.75rem 1.5rem;
       color: var(--card-bg);
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 500;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: all 0.3s ease;
-      animation: gradientFlow 3s ease infinite;
-      min-width: 120px;
+      min-width: 100px;
       text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .flowing-button:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .flowing-button:disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
+      pointer-events: none;
     }
 
     @media (max-width: 768px) {
       .flowing-button {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-      }
-    }
-
-    @keyframes gradientFlow {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    select {
-      background: #f9fafb;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      padding: 0.75rem;
-      color: var(--text-dark);
-      transition: all 0.3s ease;
-      width: 100%;
-      max-width: 200px;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: var(--primary-blue);
-      box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
-    }
-
-    @media (max-width: 768px) {
-      select {
-        padding: 0.5rem;
-        font-size: 0.875rem;
-        max-width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        min-width: 90px;
       }
     }
 
     .success-flow {
       background: linear-gradient(135deg, #10b981, #059669);
       color: var(--card-bg);
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      margin-bottom: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -367,14 +349,49 @@
     .error-flow {
       background: linear-gradient(135deg, #ef4444, #dc2626);
       color: var(--card-bg);
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      margin-bottom: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: var(--shadow);
       animation: fadeInFlow 0.5s ease-out;
+    }
+
+    @media (max-width: 768px) {
+
+      .success-flow,
+      .error-flow {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    select {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 160px;
+      font-size: 0.9rem;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      select {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+        max-width: 140px;
+      }
     }
   </style>
 </head>
@@ -387,14 +404,14 @@
 
     <div class="morphing-container">
       <header class="organic-header fade-in-flow">
-        <div class="px-8 py-6">
-          <div class="flex items-center">
-            <div class="icon-bubble mr-6">
+        <div class="px-4 py-3">
+          <div class="flex items-center flex-wrap gap-3">
+            <div class="icon-bubble mr-4">
               <i class="fas fa-file-alt"></i>
             </div>
             <div>
-              <h1 class="text-4xl font-bold text-flow">Your Documents</h1>
-              <p class="text-flow opacity-90 text-xl">All semester files</p>
+              <h1 class="text-2xl font-semibold text-flow">Your Documents</h1>
+              <p class="text-flow text-muted text-sm">View and manage your semester files</p>
             </div>
           </div>
         </div>
@@ -404,37 +421,37 @@
         <% if (typeof success !=='undefined' && success) { %>
           <div class="success-flow fade-in-flow" id="success-message">
             <div class="flex items-center">
-              <i class="fas fa-check-circle text-2xl mr-4"></i>
-              <span class="font-semibold text-lg">
+              <i class="fas fa-check-circle text-lg mr-2"></i>
+              <span class="font-medium text-sm">
                 <%= success %>
               </span>
             </div>
-            <button class="text-white hover:text-gray-200" onclick="dismissMessage('success-message')"
+            <button class="flowing-button" onclick="dismissMessage('success-message')"
               aria-label="Close success message">
-              <i class="fas fa-times"></i>
+              <i class="fas fa-times"></i> Close
             </button>
           </div>
           <% } %>
             <% if (typeof error !=='undefined' && error) { %>
               <div class="error-flow fade-in-flow" id="error-message">
                 <div class="flex items-center">
-                  <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
-                  <span class="font-semibold text-lg">
+                  <i class="fas fa-exclamation-circle text-lg mr-2"></i>
+                  <span class="font-medium text-sm">
                     <%= error %>
                   </span>
                 </div>
-                <button class="text-white hover:text-gray-200" onclick="dismissMessage('error-message')"
+                <button class="flowing-button" onclick="dismissMessage('error-message')"
                   aria-label="Close error message">
-                  <i class="fas fa-times"></i>
+                  <i class="fas fa-times"></i> Close
                 </button>
               </div>
               <% } %>
                 <section class="documents-section">
                   <div class="blob-card documents-blob slide-in-left">
-                    <div class="p-8">
-                      <div class="flex justify-between items-center flex-wrap gap-4 mb-6">
-                        <h3 class="text-2xl font-bold text-flow">Your Documents</h3>
-                        <div class="flex space-x-4">
+                    <div class="p-4">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                        <h3 class="text-xl font-semibold text-flow">Your Documents</h3>
+                        <div class="flex flex-wrap gap-2 justify-end">
                           <select id="semester-filter" class="input-flow" aria-label="Filter by semester">
                             <option value="all">All Semesters</option>
                             <% const semesters=documents && documents.length> 0 ? [...new Set(documents.map(doc =>
@@ -467,14 +484,14 @@
                           <tbody>
                             <% if (!documents || documents.length===0) { %>
                               <tr>
-                                <td colspan="5" class="text-center text-flow opacity-70 text-lg">
+                                <td colspan="5" class="text-center text-flow text-muted text-sm">
                                   No documents available
                                 </td>
                               </tr>
                               <% } else { %>
                                 <% documents.forEach((doc, index)=> { %>
                                   <tr data-semester="<%= doc.semester || 'N/A' %>">
-                                    <td>
+                                    <td class="font-medium">
                                       <%= doc.originalFilename || doc.fileType || 'N/A' %>
                                     </td>
                                     <td>
@@ -494,16 +511,15 @@
                                           aria-label="View <%= doc.originalFilename || doc.fileType || 'document' %>"
                                           <%=!doc.fileUrl ? 'disabled' : '' %>
                                           >
-                                          <i class="fas fa-eye mr-2"></i> View
+                                          <i class="fas fa-eye mr-1"></i> View
                                         </a>
                                         <button class="flowing-button download-button"
                                           data-public-id="<%= doc.publicId ? doc.publicId.split('/').pop() : '' %>"
                                           data-filename="<%= doc.originalFilename || doc.fileType || 'document' %>"
-                                          onclick="downloadDocument(this)"
                                           aria-label="Download <%= doc.originalFilename || doc.fileType || 'document' %>"
                                           <%=!doc.publicId ? 'disabled' : '' %>
                                           >
-                                          <i class="fas fa-download mr-2"></i> Download
+                                          <i class="fas fa-download mr-1"></i> Download
                                         </button>
                                       </div>
                                     </td>
@@ -515,40 +531,39 @@
                       </div>
                       <div class="document-cards">
                         <% if (!documents || documents.length===0) { %>
-                          <p class="text-flow text-center opacity-70 text-lg">No documents available</p>
+                          <p class="text-flow text-center text-muted text-sm">No documents available</p>
                           <% } else { %>
                             <% documents.forEach((doc, index)=> { %>
                               <article class="document-card" data-semester="<%= doc.semester || 'N/A' %>">
                                 <div class="flex flex-col gap-2">
-                                  <p class="font-semibold text-lg">
+                                  <p class="font-medium text-sm">
                                     <%= doc.originalFilename || doc.fileType || 'N/A' %>
                                   </p>
-                                  <p class="text-sm text-gray-600">
+                                  <p class="text-xs text-muted">
                                     Type: <%= doc.fileType || 'N/A' %>
                                   </p>
-                                  <p class="text-sm text-gray-600">
+                                  <p class="text-xs text-muted">
                                     Semester: <%= doc.semester || 'N/A' %>
                                   </p>
-                                  <p class="text-sm text-gray-600">
+                                  <p class="text-xs text-muted">
                                     Uploaded: <%= doc.createdAt ? new Date(doc.createdAt).toLocaleDateString('en-US', {
                                       year: 'numeric' , month: 'long' , day: 'numeric' }) : 'N/A' %>
                                   </p>
-                                  <div class="flex space-x-2">
+                                  <div class="flex space-x-2 flex-wrap gap-2">
                                     <a href="<%= doc.fileUrl || '#' %>" target="_blank"
                                       class="flowing-button view-button"
                                       aria-label="View <%= doc.originalFilename || doc.fileType || 'document' %>"
                                       <%=!doc.fileUrl ? 'disabled' : '' %>
                                       >
-                                      <i class="fas fa-eye mr-2"></i> View
+                                      <i class="fas fa-eye mr-1"></i> View
                                     </a>
                                     <button class="flowing-button download-button"
                                       data-public-id="<%= doc.publicId ? doc.publicId.split('/').pop() : '' %>"
                                       data-filename="<%= doc.originalFilename || doc.fileType || 'document' %>"
-                                      onclick="downloadDocument(this)"
                                       aria-label="Download <%= doc.originalFilename || doc.fileType || 'document' %>"
                                       <%=!doc.publicId ? 'disabled' : '' %>
                                       >
-                                      <i class="fas fa-download mr-2"></i> Download
+                                      <i class="fas fa-download mr-1"></i> Download
                                     </button>
                                   </div>
                                 </div>
@@ -571,14 +586,12 @@
       if (toggle) {
         toggle.addEventListener("click", () => {
           sidebar.classList.add("active");
-          console.log("Sidebar opened");
         });
       }
 
       if (closeBtn) {
         closeBtn.addEventListener("click", () => {
           sidebar.classList.remove("active");
-          console.log("Sidebar closed");
         });
       }
 
@@ -621,7 +634,6 @@
                 ? "block"
                 : "none";
           });
-          console.log(`Filtered by semester: ${selectedSemester}`);
         });
       }
 
@@ -657,7 +669,6 @@
           cards.sort(sorter);
           cardsContainer.innerHTML = "";
           cards.forEach((card) => cardsContainer.appendChild(card));
-          console.log(`Sorted by ${field} (${order})`);
         });
       }
 
@@ -665,21 +676,29 @@
       async function downloadDocument(button) {
         const publicId = button.dataset.publicId;
         const filename = button.dataset.filename;
-        const errorMessage = document.getElementById("error-message");
         const token = '<%= token || "" %>';
 
         if (!publicId) {
-          errorMessage.textContent = `Cannot download ${filename}: Invalid document ID`;
-          errorMessage.className = "error-flow fade-in-flow";
-          errorMessage.style.display = "block";
+          const errorDiv = document.createElement("div");
+          errorDiv.id = "error-message";
+          errorDiv.className = "error-flow fade-in-flow";
+          errorDiv.innerHTML = `
+          <div class="flex items-center">
+            <i class="fas fa-exclamation-circle text-lg mr-2"></i>
+            <span class="font-medium text-sm">Cannot download ${filename}: Invalid document ID</span>
+          </div>
+          <button class="flowing-button" onclick="dismissMessage('error-message')" aria-label="Close error message">
+            <i class="fas fa-times"></i> Close
+          </button>
+        `;
+          const section = document.querySelector(".documents-section");
+          section.insertBefore(errorDiv, section.firstChild);
           setTimeout(() => dismissMessage("error-message"), 5000);
-          console.error(`Invalid publicId for ${filename}`);
           return;
         }
 
         button.disabled = true;
-        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Downloading...';
-        errorMessage.style.display = "none";
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Downloading...';
 
         try {
           const response = await fetch(`/users/download/${publicId}?token=${encodeURIComponent(token)}`, {
@@ -703,27 +722,46 @@
           a.click();
           a.remove();
           window.URL.revokeObjectURL(url);
-          console.log(`Downloaded ${filename}`);
         } catch (err) {
-          console.error(`Download error for ${filename}:`, err);
-          errorMessage.textContent = `Failed to download ${filename}: ${err.message}`;
-          errorMessage.className = "error-flow fade-in-flow";
-          errorMessage.style.display = "block";
+          const errorDiv = document.createElement("div");
+          errorDiv.id = "error-message";
+          errorDiv.className = "error-flow fade-in-flow";
+          errorDiv.innerHTML = `
+          <div class="flex items-center">
+            <i class="fas fa-exclamation-circle text-lg mr-2"></i>
+            <span class="font-medium text-sm">Failed to download ${filename}: ${err.message}</span>
+          </div>
+          <button class="flowing-button" onclick="dismissMessage('error-message')" aria-label="Close error message">
+            <i class="fas fa-times"></i> Close
+          </button>
+        `;
+          const section = document.querySelector(".documents-section");
+          section.insertBefore(errorDiv, section.firstChild);
           setTimeout(() => dismissMessage("error-message"), 5000);
         } finally {
           button.disabled = false;
-          button.innerHTML = '<i class="fas fa-download mr-2"></i> Download';
+          button.innerHTML = '<i class="fas fa-download mr-1"></i> Download';
         }
       }
+
+      // Ensure all buttons are clickable
+      document.querySelectorAll('.flowing-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const href = button.getAttribute('href');
+          if (href && href !== '#' && !button.disabled) {
+            window.location.href = href;
+          }
+        });
+      });
 
       // Validate view links on load
       document.querySelectorAll(".view-button").forEach((button) => {
         const href = button.getAttribute("href");
         if (!href || href === "#") {
+          button.disabled = true;
           button.classList.add("disabled");
           button.style.pointerEvents = "none";
-          button.style.opacity = "0.6";
-          console.warn(`Invalid fileUrl for view button: ${button.getAttribute("aria-label")}`);
+          button.style.opacity = "0.5";
         }
       });
     </script>
