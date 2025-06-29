@@ -12,16 +12,18 @@
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   <style>
     :root {
-      --primary-blue: #1e90ff;
-      --primary-purple: #7c3aed;
-      --primary-teal: #14b8a6;
+      --primary-blue: #3b82f6;
+      --primary-purple: #6d28d9;
+      --primary-teal: #2dd4bf;
       --primary-pink: #ec4899;
       --primary-indigo: #4f46e5;
       --accent-orange: #f97316;
-      --bg-light: #f0f4f8;
+      --bg-light: #f8fafc;
       --card-bg: #ffffff;
-      --text-dark: #1f2937;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --text-dark: #111827;
+      --text-muted: #6b7280;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --border: #e5e7eb;
     }
 
     * {
@@ -34,20 +36,19 @@
       font-family: "Poppins", sans-serif;
       background: var(--bg-light);
       min-height: 100vh;
-      overflow-x: hidden;
       color: var(--text-dark);
     }
 
     .icon-bubble {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--card-bg);
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       box-shadow: var(--shadow);
     }
 
@@ -55,10 +56,10 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 250px;
+      width: 240px;
       height: 100%;
       background: var(--card-bg);
-      border-right: 1px solid #e5e7eb;
+      border-right: 1px solid var(--border);
       padding: 1.5rem 1rem;
       z-index: 1000;
       transition: transform 0.3s ease;
@@ -79,6 +80,7 @@
       border-radius: 50%;
       cursor: pointer;
       display: none;
+      box-shadow: var(--shadow);
     }
 
     .sidebar-close {
@@ -93,8 +95,8 @@
 
     @media (max-width: 768px) {
       .sidebar {
-        transform: translateX(-100%);
-        padding: 1rem 0.5rem;
+        width: 200px;
+        padding: 1rem 0.75rem;
       }
 
       .sidebar.active {
@@ -105,6 +107,18 @@
       .sidebar-close {
         display: block;
       }
+
+      .icon-bubble {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 180px;
+      }
     }
 
     .sidebar-nav a {
@@ -113,13 +127,16 @@
       padding: 0.75rem 1rem;
       color: var(--text-dark);
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 8px;
       margin-bottom: 0.5rem;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
     }
 
+    .sidebar-nav a:hover,
     .sidebar-nav a.active {
       background: var(--bg-light);
+      transform: translateX(4px);
     }
 
     .sidebar-nav a i {
@@ -129,9 +146,9 @@
 
     .morphing-container {
       margin-left: 260px;
-      margin-top: 3rem;
-      padding: 2rem 1.5rem;
-      max-width: 1200px;
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
       transition: margin-left 0.3s ease;
@@ -140,26 +157,38 @@
     @media (max-width: 768px) {
       .morphing-container {
         margin-left: 0;
-        margin-top: 1.5rem;
+        margin-top: 4rem;
         padding: 1rem;
       }
     }
 
     .organic-header,
     .attendance-section {
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
     }
 
     .blob-card {
       background: var(--card-bg);
-      border-radius: 15px;
+      border-radius: 12px;
       box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .blob-card:hover {
+      transform: translateY(-4px);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(45, 212, 191, 0.05));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     .attendance-blob {
-      padding: 2.5rem;
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .attendance-blob {
+        padding: 1rem;
+      }
     }
 
     .text-flow {
@@ -167,14 +196,14 @@
     }
 
     .fade-in-flow {
-      animation: fadeInFlow 1s ease-out forwards;
+      animation: fadeInFlow 0.8s ease-out forwards;
       opacity: 0;
     }
 
     .slide-in-left {
       animation: slideInLeft 0.8s ease-out forwards;
       opacity: 0;
-      transform: translateX(-50px);
+      transform: translateX(-30px);
     }
 
     @keyframes fadeInFlow {
@@ -194,6 +223,7 @@
       overflow-x: auto;
       border-radius: 10px;
       background: var(--card-bg);
+      border: 1px solid var(--border);
     }
 
     table {
@@ -210,11 +240,11 @@
 
     th,
     td {
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       text-align: left;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid var(--border);
       color: var(--text-dark);
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     th {
@@ -225,19 +255,23 @@
       background: #f9fafb;
     }
 
+    tr:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(45, 212, 191, 0.05));
+    }
+
     .subject-card {
       display: none;
       background: var(--card-bg);
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       padding: 1rem;
       margin-bottom: 0.75rem;
-      position: relative;
-      z-index: 1;
+      transition: all 0.3s ease;
     }
 
-    .subject-card:not(:last-child) {
-      border-bottom: 1px solid #e5e7eb;
+    .subject-card:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(45, 212, 191, 0.05));
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     }
 
     @media (max-width: 768px) {
@@ -248,20 +282,27 @@
       .subject-card {
         display: block;
       }
+
+      th,
+      td {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+      }
     }
 
     .subject-link {
       cursor: pointer;
       color: var(--primary-blue);
-      font-weight: 600;
+      font-weight: 500;
+      transition: color 0.3s ease;
     }
 
-    .subject-link:active {
-      color: var(--primary-teal);
+    .subject-link:hover:not(.disabled) {
+      color: var(--primary-indigo);
     }
 
     .subject-link.disabled {
-      color: #9ca3af;
+      color: var(--text-muted);
       cursor: not-allowed;
       pointer-events: none;
     }
@@ -271,73 +312,97 @@
       background: var(--card-bg);
       border-radius: 10px;
       padding: 1rem;
-      min-height: 400px;
+      min-height: 450px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .fc {
+      font-size: 0.9rem;
+    }
+
+    .fc .fc-daygrid-day-number {
+      color: var(--text-dark);
+    }
+
+    .fc .fc-daygrid-day.fc-day-today {
+      background: rgba(59, 130, 246, 0.1);
     }
 
     .fc-event-present {
       background-color: #10b981;
       border-color: #10b981;
       color: var(--card-bg);
+      border-radius: 4px;
+      padding: 2px 4px;
+      font-size: 0.85rem;
     }
 
     .fc-event-absent {
       background-color: #ef4444;
       border-color: #ef4444;
       color: var(--card-bg);
+      border-radius: 4px;
+      padding: 2px 4px;
+      font-size: 0.85rem;
+    }
+
+    .fc .fc-button {
+      background: var(--primary-blue);
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      color: var(--card-bg);
+      transition: all 0.3s ease;
+    }
+
+    .fc .fc-button:hover:not(:disabled) {
+      background: var(--primary-indigo);
+      transform: translateY(-1px);
     }
 
     .flowing-button {
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
-      background-size: 200% 200%;
       border: none;
-      border-radius: 50px;
+      border-radius: 8px;
       padding: 0.75rem 1.5rem;
       color: var(--card-bg);
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 500;
+      font-size: 0.95rem;
       cursor: pointer;
-      animation: gradientFlow 3s ease infinite;
-      min-width: 120px;
+      transition: all 0.3s ease;
+      min-width: 100px;
       text-align: center;
-      transition: background 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .flowing-button:hover:not(:disabled) {
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .flowing-button:disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
-    }
-
-    .flowing-button:active {
-      background: linear-gradient(135deg, var(--primary-teal), var(--primary-blue));
+      pointer-events: none;
     }
 
     @media (max-width: 768px) {
       .flowing-button {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-      }
-    }
-
-    @keyframes gradientFlow {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        min-width: 90px;
       }
     }
 
     .success-flow {
       background: linear-gradient(135deg, #10b981, #059669);
       color: var(--card-bg);
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      margin-bottom: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -348,14 +413,23 @@
     .error-flow {
       background: linear-gradient(135deg, #ef4444, #dc2626);
       color: var(--card-bg);
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      margin-bottom: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: var(--shadow);
       animation: fadeInFlow 0.5s ease-out;
+    }
+
+    @media (max-width: 768px) {
+
+      .success-flow,
+      .error-flow {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>
@@ -368,14 +442,14 @@
 
     <div class="morphing-container">
       <header class="organic-header fade-in-flow">
-        <div class="px-8 py-6">
-          <div class="flex items-center">
-            <div class="icon-bubble mr-6">
+        <div class="px-4 py-3">
+          <div class="flex items-center flex-wrap gap-3">
+            <div class="icon-bubble mr-4">
               <i class="fas fa-calendar-check"></i>
             </div>
             <div>
-              <h1 class="text-4xl font-bold text-flow">Attendance</h1>
-              <p class="text-flow opacity-90 text-xl">Track your presence</p>
+              <h1 class="text-2xl font-semibold text-flow">Attendance</h1>
+              <p class="text-flow text-muted text-sm">Track your presence</p>
             </div>
           </div>
         </div>
@@ -385,43 +459,39 @@
         <% if (typeof success !=='undefined' && success) { %>
           <div class="success-flow fade-in-flow" id="success-message">
             <div class="flex items-center">
-              <i class="fas fa-check-circle text-2xl mr-4"></i>
-              <span class="font-semibold text-lg">
+              <i class="fas fa-check-circle text-lg mr-2"></i>
+              <span class="font-medium text-sm">
                 <%= success %>
               </span>
             </div>
-            <button class="text-white hover:text-gray-200" onclick="dismissMessage('success-message')"
+            <button class="flowing-button" onclick="dismissMessage('success-message')"
               aria-label="Close success message">
-              <i class="fas fa-times"></i>
+              <i class="fas fa-times"></i> Close
             </button>
           </div>
           <% } %>
             <% if (typeof error !=='undefined' && error) { %>
               <div class="error-flow fade-in-flow" id="error-message">
                 <div class="flex items-center">
-                  <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
-                  <span class="font-semibold text-lg">
+                  <i class="fas fa-exclamation-circle text-lg mr-2"></i>
+                  <span class="font-medium text-sm">
                     <%= error %>
                   </span>
                 </div>
-                <button class="text-white hover:text-gray-200" onclick="dismissMessage('error-message')"
+                <button class="flowing-button" onclick="dismissMessage('error-message')"
                   aria-label="Close error message">
-                  <i class="fas fa-times"></i>
+                  <i class="fas fa-times"></i> Close
                 </button>
               </div>
               <% } %>
                 <section class="attendance-section">
                   <div class="blob-card attendance-blob slide-in-left">
-                    <div class="p-8">
+                    <div class="p-4">
                       <div id="overall-attendance-container">
-                        <h3 class="text-2xl font-bold text-flow mb-6">
-                          Overall Attendance Calendar
-                        </h3>
+                        <h3 class="text-xl font-semibold text-flow mb-4">Overall Attendance Calendar</h3>
                         <div id="attendance-calendar"></div>
                       </div>
-                      <h3 class="text-2xl font-bold text-flow mt-8 mb-6">
-                        Subject-wise Attendance
-                      </h3>
+                      <h3 class="text-xl font-semibold text-flow mt-6 mb-4">Subject-wise Attendance</h3>
                       <div class="table-container">
                         <table>
                           <thead>
@@ -435,7 +505,7 @@
                           <tbody>
                             <% if (!attendanceBySubject || attendanceBySubject.length===0) { %>
                               <tr>
-                                <td colspan="4" class="text-center text-flow opacity-70 text-lg">
+                                <td colspan="4" class="text-center text-flow text-muted text-sm">
                                   No attendance records available
                                 </td>
                               </tr>
@@ -467,14 +537,14 @@
                       </div>
                       <div class="subject-cards">
                         <% if (!attendanceBySubject || attendanceBySubject.length===0) { %>
-                          <p class="text-flow text-center opacity-70 text-lg">
+                          <p class="text-flow text-center text-muted text-sm">
                             No attendance records available
                           </p>
                           <% } else { %>
                             <% attendanceBySubject.forEach(record=> { %>
                               <article class="subject-card">
                                 <div class="flex flex-col gap-2">
-                                  <p class="font-semibold text-lg">
+                                  <p class="font-medium text-sm">
                                     <span
                                       class="subject-link <%= !record.subject || record.subject === 'N/A' ? 'disabled' : '' %>"
                                       data-subject="<%= record.subject || 'N/A' %>"
@@ -482,13 +552,13 @@
                                       <%= record.subject || 'N/A' %>
                                     </span>
                                   </p>
-                                  <p class="text-sm text-gray-600">
+                                  <p class="text-xs text-muted">
                                     Present: <%= record.present || 0 %>
                                   </p>
-                                  <p class="text-sm text-gray-600">
+                                  <p class="text-xs text-muted">
                                     Absent: <%= record.absent || 0 %>
                                   </p>
-                                  <p class="text-sm text-gray-600">
+                                  <p class="text-xs text-muted">
                                     Total: <%= record.total || 0 %>
                                   </p>
                                 </div>
@@ -496,13 +566,11 @@
                               <% }) %>
                                 <% } %>
                       </div>
-                      <div id="subject-calendar-container" class="mt-8 hidden">
-                        <div class="flex items-center justify-between mb-6">
-                          <h3 class="text-2xl font-bold text-flow" id="subject-calendar-title"></h3>
-                          <button id="back-to-overall" class="flowing-button" onclick="showOverallCalendar()"
-                            aria-label="Back to overall attendance">
-                            <i class="fas fa-arrow-left mr-2"></i> Back to Overall
-                            Attendance
+                      <div id="subject-calendar-container" class="mt-6 hidden">
+                        <div class="flex items-center justify-between mb-4">
+                          <h3 class="text-xl font-semibold text-flow" id="subject-calendar-title"></h3>
+                          <button id="back-to-overall" class="flowing-button" aria-label="Back to overall attendance">
+                            <i class="fas fa-arrow-left mr-1"></i> Back
                           </button>
                         </div>
                         <div id="subject-calendar"></div>
@@ -523,14 +591,12 @@
       if (toggle) {
         toggle.addEventListener("click", () => {
           sidebar.classList.add("active");
-          console.log("Sidebar opened");
         });
       }
 
       if (closeBtn) {
         closeBtn.addEventListener("click", () => {
           sidebar.classList.remove("active");
-          console.log("Sidebar closed");
         });
       }
 
@@ -554,23 +620,27 @@
       // Attendance data
       let attendanceData = [];
       try {
-        attendanceData = JSON.parse(
-          `<%= user && user.attendance ? JSON.stringify(user.attendance).replace(/<\/script/g, '<\\/script') : '[]' %>`
-        );
-        console.log("Parsed attendance data:", attendanceData);
+        const rawData = `<%= user && user.attendance ? JSON.stringify(user.attendance).replace(/<\/script/g, '<\\/script') : '[]' %>`;
+        if (rawData && rawData !== '[]') {
+          attendanceData = JSON.parse(rawData);
+        }
       } catch (err) {
         console.error("Error parsing attendance data:", err);
+        const errorDiv = document.createElement("div");
+        errorDiv.id = "error-message";
+        errorDiv.className = "error-flow fade-in-flow";
+        errorDiv.innerHTML = `
+        <div class="flex items-center">
+          <i class="fas fa-exclamation-circle text-lg mr-2"></i>
+          <span class="font-medium text-sm">Error loading attendance data</span>
+        </div>
+        <button class="flowing-button" onclick="dismissMessage('error-message')" aria-label="Close error message">
+          <i class="fas fa-times"></i> Close
+        </button>
+      `;
+        document.querySelector(".flowing-grid").insertBefore(errorDiv, document.querySelector(".attendance-section"));
+        setTimeout(() => dismissMessage("error-message"), 5000);
         attendanceData = [];
-        document.getElementById("error-message").innerHTML = `
-          <div class="flex items-center">
-            <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
-            <span class="font-semibold text-lg">Error loading attendance data</span>
-          </div>
-          <button class="text-white hover:text-gray-200" onclick="dismissMessage('error-message')" aria-label="Close error message">
-            <i class="fas fa-times"></i>
-          </button>`;
-        document.getElementById("error-message").className = "error-flow fade-in-flow";
-        document.getElementById("error-message").style.display = "flex";
       }
 
       // Validate and format dates
@@ -585,7 +655,7 @@
             console.warn(`Invalid date format for record: ${JSON.stringify(record)}`);
             return false;
           }
-          return true;
+          return record.status === "Present" || record.status === "Absent";
         })
         .map((record) => ({
           ...record,
@@ -598,27 +668,29 @@
       let calendar = null;
 
       function renderOverallCalendar() {
-        if (!calendarEl) {
-          console.error("Calendar element not found");
-          overallContainer.innerHTML =
-            '<p class="text-flow text-center opacity-70 text-lg">Error: Calendar container not found</p>';
+        if (!calendarEl || !overallContainer) {
+          console.error("Calendar element or container not found");
+          if (overallContainer) {
+            overallContainer.innerHTML =
+              '<p class="text-flow text-center text-muted text-sm">Error: Calendar container not found</p>';
+          }
           return;
         }
 
         if (calendar) {
           calendar.destroy();
-          console.log("Destroyed existing calendar");
         }
 
         try {
           calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: "dayGridMonth",
             height: "auto",
+            contentHeight: 400,
+            fixedWeekCount: false,
             events: validAttendanceData.map((record) => ({
               title: `${record.subject}: ${record.status}`,
               start: record.date,
-              classNames:
-                record.status === "Present" ? ["fc-event-present"] : ["fc-event-absent"],
+              classNames: record.status === "Present" ? ["fc-event-present"] : ["fc-event-absent"],
             })),
             eventDidMount: function (info) {
               info.el.setAttribute("title", info.event.title);
@@ -627,16 +699,23 @@
             eventsSet: function () {
               if (validAttendanceData.length === 0) {
                 calendarEl.innerHTML =
-                  '<p class="text-flow text-center opacity-70 text-lg">No attendance records available</p>';
+                  '<p class="text-flow text-center text-muted text-sm">No attendance records available</p>';
               }
             },
+            headerToolbar: {
+              left: 'prev,next today',
+              center: 'title',
+              right: ''
+            },
+            datesSet: function () {
+              calendarEl.querySelector('.fc-scroller').style.overflow = 'visible';
+            }
           });
           calendar.render();
-          console.log("Rendered overall calendar with", validAttendanceData.length, "events");
         } catch (err) {
           console.error("Error rendering calendar:", err);
           calendarEl.innerHTML =
-            '<p class="text-flow text-center opacity-70 text-lg">Error rendering calendar</p>';
+            '<p class="text-flow text-center text-muted text-sm">Error rendering calendar</p>';
         }
       }
 
@@ -654,10 +733,8 @@
         if (subjectCalendar) {
           subjectCalendar.destroy();
           subjectCalendar = null;
-          console.log("Destroyed subject calendar");
         }
         renderOverallCalendar();
-        console.log("Returned to overall calendar");
       }
 
       subjectLinks.forEach((link) => {
@@ -673,6 +750,20 @@
             subjectCalendarContainer.classList.remove("hidden");
           } else {
             console.error("Subject calendar elements not found");
+            const errorDiv = document.createElement("div");
+            errorDiv.id = "error-message";
+            errorDiv.className = "error-flow fade-in-flow";
+            errorDiv.innerHTML = `
+            <div class="flex items-center">
+              <i class="fas fa-exclamation-circle text-lg mr-2"></i>
+              <span class="font-medium text-sm">Error loading subject calendar</span>
+            </div>
+            <button class="flowing-button" onclick="dismissMessage('error-message')" aria-label="Close error message">
+              <i class="fas fa-times"></i> Close
+            </button>
+          `;
+            document.querySelector(".flowing-grid").insertBefore(errorDiv, document.querySelector(".attendance-section"));
+            setTimeout(() => dismissMessage("error-message"), 5000);
             return;
           }
 
@@ -684,7 +775,7 @@
           if (!subjectCalendarEl) {
             console.error("Subject calendar element not found");
             subjectCalendarContainer.innerHTML =
-              '<p class="text-flow text-center opacity-70 text-lg">Error: Calendar container not found</p>';
+              '<p class="text-flow text-center text-muted text-sm">Error: Calendar container not found</p>';
             return;
           }
 
@@ -692,54 +783,88 @@
             subjectCalendar = new FullCalendar.Calendar(subjectCalendarEl, {
               initialView: "dayGridMonth",
               height: "auto",
+              contentHeight: 400,
+              fixedWeekCount: false,
               events: validAttendanceData
                 .filter((record) => record.subject === subject)
                 .map((record) => ({
                   title: record.status,
                   start: record.date,
-                  classNames:
-                    record.status === "Present"
-                      ? ["fc-event-present"]
-                      : ["fc-event-absent"],
+                  classNames: record.status === "Present" ? ["fc-event-present"] : ["fc-event-absent"],
                 })),
               eventDidMount: function (info) {
                 info.el.setAttribute("title", info.event.title);
                 info.el.setAttribute("aria-label", info.event.title);
               },
               eventsSet: function () {
-                if (
-                  validAttendanceData.filter((record) => record.subject === subject)
-                    .length === 0
-                ) {
+                if (validAttendanceData.filter((record) => record.subject === subject).length === 0) {
                   subjectCalendarEl.innerHTML =
-                    '<p class="text-flow text-center opacity-70 text-lg">No attendance records for this subject</p>';
+                    '<p class="text-flow text-center text-muted text-sm">No attendance records for this subject</p>';
                 }
               },
+              headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+              },
+              datesSet: function () {
+                subjectCalendarEl.querySelector('.fc-scroller').style.overflow = 'visible';
+              }
             });
             subjectCalendar.render();
-            console.log(`Rendered calendar for subject: ${subject}`);
           } catch (err) {
             console.error(`Error rendering subject calendar for ${subject}:`, err);
             subjectCalendarEl.innerHTML =
-              '<p class="text-flow text-center opacity-70 text-lg">Error rendering calendar</p>';
+              '<p class="text-flow text-center text-muted text-sm">Error rendering calendar</p>';
+            const errorDiv = document.createElement("div");
+            errorDiv.id = "error-message";
+            errorDiv.className = "error-flow fade-in-flow";
+            errorDiv.innerHTML = `
+            <div class="flex items-center">
+              <i class="fas fa-exclamation-circle text-lg mr-2"></i>
+              <span class="font-medium text-sm">Error rendering calendar for ${subject}</span>
+            </div>
+            <button class="flowing-button" onclick="dismissMessage('error-message')" aria-label="Close error message">
+              <i class="fas fa-times"></i> Close
+            </button>
+          `;
+            document.querySelector(".flowing-grid").insertBefore(errorDiv, document.querySelector(".attendance-section"));
+            setTimeout(() => dismissMessage("error-message"), 5000);
           }
         });
       });
 
+      // Attach back button event
+      const backButton = document.getElementById("back-to-overall");
+      if (backButton) {
+        backButton.addEventListener("click", showOverallCalendar);
+      }
+
       // Initial render
-      if (calendarEl) {
+      if (calendarEl && overallContainer) {
         if (validAttendanceData.length > 0) {
           renderOverallCalendar();
         } else {
           calendarEl.innerHTML =
-            '<p class="text-flow text-center opacity-70 text-lg">No attendance records available</p>';
-          console.log("No valid attendance data to render");
+            '<p class="text-flow text-center text-muted text-sm">No attendance records available</p>';
         }
       } else {
-        console.error("Calendar element not found on page load");
-        overallContainer.innerHTML =
-          '<p class="text-flow text-center opacity-70 text-lg">Error: Calendar container not found</p>';
+        console.error("Calendar element or container not found on page load");
+        if (overallContainer) {
+          overallContainer.innerHTML =
+            '<p class="text-flow text-center text-muted text-sm">Error: Calendar container not found</p>';
+        }
       }
+
+      // Ensure all buttons are clickable
+      document.querySelectorAll('.flowing-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const href = button.getAttribute('href');
+          if (href && href !== '#' && !button.disabled) {
+            window.location.href = href;
+          }
+        });
+      });
     </script>
 </body>
 
