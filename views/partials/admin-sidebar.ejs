@@ -1,10 +1,20 @@
-<div class="sidebar">
-  <div class="px-4 py-6">
-    <h2 class="text-2xl font-bold text-flow mb-6">ERP Admin Portal</h2>
-    <div class="sidebar-nav">
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Logo and Brand -->
+    <div class="navbar-brand">
+      <h2 class="brand-title">ERP Admin Portal</h2>
+    </div>
+
+    <!-- Hamburger Menu for Mobile -->
+    <button class="navbar-toggle" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navigation Links -->
+    <div class="navbar-menu">
       <a
         href="/admin?token=<%= token %>"
-        class="<%= currentPage && currentPage.toLowerCase() === 'admin' ? 'active' : '' %>"
+        class="navbar-link <%= currentPage && currentPage.toLowerCase() === 'admin' ? 'active' : '' %>"
         data-page="admin"
         aria-current="<%= currentPage && currentPage.toLowerCase() === 'admin' ? 'page' : 'false' %>"
       >
@@ -12,15 +22,15 @@
       </a>
       <a
         href="/admin/college?token=<%= token %>"
-        class="<%= currentPage && currentPage.toLowerCase() === 'college' ? 'active' : '' %>"
+        class="navbar-link <%= currentPage && currentPage.toLowerCase() === 'college' ? 'active' : '' %>"
         data-page="college"
         aria-current="<%= currentPage && currentPage.toLowerCase() === 'college' ? 'page' : 'false' %>"
       >
-        <i class="fas fa-university"></i> College Structure
+        <i class="fas fa-university"></i> College
       </a>
       <a
         href="/admin/create-user?token=<%= token %>"
-        class="<%= currentPage && currentPage.toLowerCase() === 'create-user' ? 'active' : '' %>"
+        class="navbar-link <%= currentPage && currentPage.toLowerCase() === 'create-user' ? 'active' : '' %>"
         data-page="create-user"
         aria-current="<%= currentPage && currentPage.toLowerCase() === 'create-user' ? 'page' : 'false' %>"
       >
@@ -28,7 +38,7 @@
       </a>
       <a
         href="/admin/make-attendance?token=<%= token %>"
-        class="<%= currentPage && currentPage.toLowerCase() === 'make-attendance' ? 'active' : '' %>"
+        class="navbar-link <%= currentPage && currentPage.toLowerCase() === 'make-attendance' ? 'active' : '' %>"
         data-page="make-attendance"
         aria-current="<%= currentPage && currentPage.toLowerCase() === 'make-attendance' ? 'page' : 'false' %>"
       >
@@ -36,7 +46,7 @@
       </a>
       <a
         href="/admin/edit-user?token=<%= token %>"
-        class="<%= currentPage && currentPage.toLowerCase() === 'edit-user' ? 'active' : '' %>"
+        class="navbar-link <%= currentPage && currentPage.toLowerCase() === 'edit-user' ? 'active' : '' %>"
         data-page="edit-user"
         aria-current="<%= currentPage && currentPage.toLowerCase() === 'edit-user' ? 'page' : 'false' %>"
       >
@@ -44,7 +54,7 @@
       </a>
       <a
         href="/admin/upload-documents?token=<%= token %>"
-        class="<%= currentPage && currentPage.toLowerCase() === 'upload-documents' ? 'active' : '' %>"
+        class="navbar-link <%= currentPage && currentPage.toLowerCase() === 'upload-documents' ? 'active' : '' %>"
         data-page="upload-documents"
         aria-current="<%= currentPage && currentPage.toLowerCase() === 'upload-documents' ? 'page' : 'false' %>"
       >
@@ -52,93 +62,147 @@
       </a>
       <a
         href="/admin/assign-teachers?token=<%= token %>"
-        class="<%= currentPage && currentPage.toLowerCase() === 'assign-teachers' ? 'active' : '' %>"
+        class="navbar-link <%= currentPage && currentPage.toLowerCase() === 'assign-teachers' ? 'active' : '' %>"
         data-page="assign-teachers"
         aria-current="<%= currentPage && currentPage.toLowerCase() === 'assign-teachers' ? 'page' : 'false' %>"
       >
         <i class="fas fa-chalkboard-teacher"></i> Assign Teachers
       </a>
-      <a href="/" data-page="logout" aria-current="false">
+      <a href="/" class="navbar-link" data-page="logout">
         <i class="fas fa-sign-out-alt"></i> Logout
       </a>
     </div>
   </div>
 
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600&display=swap");
+
     :root {
-      --primary-blue: #3b82f6;
-      --primary-purple: #8b5cf6;
+      --primary-blue: #2563eb;
+      --primary-purple: #7c3aed;
+      --text-dark: #1f2937;
+      --light-gray: #f3f4f6;
     }
 
-    .text-flow {
-      color: white;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .sidebar {
+    .navbar {
+      background: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       position: fixed;
       top: 0;
       left: 0;
-      width: 250px;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-right: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 2rem 1rem;
+      width: 100%;
       z-index: 1000;
-      transition: transform 0.3s ease;
+      padding: 0.75rem 1.5rem;
+      font-family: "Inter", sans-serif;
     }
 
-    .sidebar.hidden {
-      transform: translateX(-100%);
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-      .sidebar.active {
-        transform: translateX(0);
-      }
-    }
-
-    .sidebar-nav a {
+    .navbar-container {
+      max-width: 1280px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      padding: 0.75rem 1rem;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      margin-bottom: 0.5rem;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      font-weight: 500;
+      justify-content: space-between;
     }
 
-    .sidebar-nav a:hover,
-    .sidebar-nav a.active {
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-title {
+      font-family: "Poppins", sans-serif;
+      font-size: 1.5rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .navbar-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .navbar-link i {
+      margin-right: 0.4rem;
+      font-size: 1rem;
+    }
+
+    .navbar-link::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
       background: linear-gradient(
-        135deg,
+        90deg,
         var(--primary-blue),
         var(--primary-purple)
       );
-      transform: translateX(5px);
-      color: white;
-      font-weight: 600;
-      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+      transition: width 0.3s ease;
     }
 
-    .sidebar-nav a.active {
-      border-left: 4px solid var(--primary-blue);
+    .navbar-link:hover::after,
+    .navbar-link.active::after {
+      width: 100%;
     }
 
-    .sidebar-nav a i {
-      margin-right: 0.75rem;
-      font-size: 1.2rem;
+    .navbar-link:hover,
+    .navbar-link.active {
+      color: var(--primary-blue);
+    }
+
+    @media (max-width: 768px) {
+      .navbar-toggle {
+        display: block;
+      }
+
+      .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-menu.active {
+        display: flex;
+      }
+
+      .navbar-link {
+        width: 100%;
+        padding: 0.6rem 0;
+      }
     }
   </style>
 
-  <!-- <script>
+  <script>
     // Ensure the correct sidebar link is highlighted on page load
     document.addEventListener("DOMContentLoaded", () => {
       const currentPath = window.location.pathname;
@@ -179,5 +243,5 @@
         });
       }
     });
-  </script> -->
-</div>
+  </script>
+</nav>

@@ -18,88 +18,99 @@
     />
     <style>
       :root {
-        --primary-blue: #3b82f6;
-        --primary-purple: #8b5cf6;
-        --primary-teal: #06b6d4;
+        --primary-blue: #1e90ff;
+        --primary-purple: #7c3aed;
+        --primary-teal: #14b8a6;
         --primary-pink: #ec4899;
-        --primary-indigo: #6366f1;
+        --primary-indigo: #4f46e5;
         --accent-orange: #f97316;
+        --bg-light: #f0f4f8;
+        --card-bg: #ffffff;
+        --text-dark: #1f2937;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
       body {
         font-family: "Poppins", sans-serif;
-        background: linear-gradient(135deg, #164172 0%, #3d5f75 100%);
+        background: var(--bg-light);
         min-height: 100vh;
         overflow-x: hidden;
+        color: var(--text-dark);
       }
 
-      .sidebar-toggle {
-        position: fixed;
-        top: 1rem;
-        left: 1rem;
-        z-index: 1001;
-        background: var(--primary-blue);
-        color: white;
-        padding: 0.5rem;
-        border-radius: 50%;
-        cursor: pointer;
-        display: none;
-      }
-
-      @media (max-width: 768px) {
-        .sidebar-toggle {
-          display: block;
-        }
-      }
-
-      .morphing-container {
-        margin-left: 250px;
-        padding: 2rem;
-        position: relative;
-        z-index: 10;
+      .main-content {
+        margin-left: 260px;
+        margin-top: 3rem;
+        padding: 2rem 1.5rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        transition: margin-left 0.3s ease;
       }
 
       @media (max-width: 768px) {
-        .morphing-container {
+        .main-content {
           margin-left: 0;
+          margin-top: 1.5rem;
+          padding: 1rem;
         }
       }
 
-      .blob-card {
-        background: rgba(22, 21, 21, 0.15);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
+      .welcome-header,
+      .section-card {
+        margin-bottom: 3rem;
       }
 
-      .blob-card:hover {
-        transform: translateY(-15px) scale(1.02);
-        box-shadow: 0 35px 70px rgba(0, 0, 0, 0.15);
+      .welcome-header {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        text-align: center;
       }
 
-      .admin-blob {
-        border-radius: 50px 30px 50px 30px;
-        transform: rotate(-1deg);
-        margin: 1.5rem 0.5rem;
-      }
-
-      .text-flow {
+      .success-flow {
+        background: linear-gradient(135deg, #10b981, #059669);
         color: white;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: var(--shadow);
+        animation: successPulse 2s ease infinite;
+      }
+
+      @keyframes successPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+      }
+
+      .error-flow {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: var(--shadow);
       }
 
       .fade-in-flow {
         animation: fadeInFlow 1s ease-out forwards;
         opacity: 0;
-      }
-
-      .slide-in-left {
-        animation: slideInLeft 0.8s ease-out forwards;
-        opacity: 0;
-        transform: translateX(-50px);
       }
 
       @keyframes fadeInFlow {
@@ -108,123 +119,96 @@
         }
       }
 
-      @keyframes slideInLeft {
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
+      .section-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        max-width: 1200px;
+        margin: 20px;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .section-title i {
+        margin-right: 0.75rem;
+        color: var(--primary-blue);
       }
 
       .table-container {
         overflow-x: auto;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
         border-radius: 10px;
         padding: 1rem;
+        background: var(--card-bg);
       }
 
       table {
         width: 100%;
         border-collapse: collapse;
-        background: transparent;
       }
 
       th,
       td {
         padding: 1rem;
         text-align: left;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
+        border-bottom: 1px solid #e5e7eb;
+        color: var(--text-dark);
       }
 
       th {
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .icon-bubble {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--primary-blue),
-          var(--primary-purple)
-        );
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.5rem;
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-      }
-
-      .error-flow {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 30px;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-        animation: fadeInFlow 0.5s ease-out;
-      }
-
-      .success-flow {
-        background: linear-gradient(135deg, #10b981, #059669);
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 30px;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
-        animation: fadeInFlow 0.5s ease-out;
+        background: #f9fafb;
+        font-weight: 600;
       }
 
       .flowing-button {
         background: linear-gradient(
           135deg,
           var(--primary-blue),
-          var(--primary-purple),
           var(--primary-teal)
         );
-        background-size: 200% 200%;
-        border: none;
-        border-radius: 50px;
-        padding: 0.75rem 1.5rem;
         color: white;
-        font-weight: 600;
-        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
         cursor: pointer;
-        transition: all 0.4s ease;
-        animation: gradientFlow 3s ease infinite;
-      }
-
-      @keyframes gradientFlow {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
       }
 
       .flowing-button:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        background: linear-gradient(
+          135deg,
+          var(--primary-indigo),
+          var(--primary-purple)
+        );
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .activity-item:last-child {
+        border-bottom: none;
       }
 
       .loading-spinner {
         display: inline-block;
         width: 1.5rem;
         height: 1.5rem;
-        border: 3px solid rgba(255, 255, 255, 0.3);
+        border: 3px solid #e5e7eb;
         border-radius: 50%;
         border-top-color: var(--primary-blue);
         animation: spin 1s ease-in-out infinite;
@@ -238,150 +222,124 @@
     </style>
   </head>
   <body>
-    <button class="sidebar-toggle" aria-label="Toggle Sidebar">
-      <i class="fas fa-bars"></i>
-    </button>
     <%- include('./partials/admin-sidebar', { token, currentPage: 'admin' }) %>
 
-    <div class="morphing-container">
-      <header class="organic-header fade-in-flow">
-        <div class="px-8 py-6">
-          <div class="flex items-center">
-            <div class="icon-bubble mr-6">
-              <i class="fas fa-cogs"></i>
-            </div>
-            <div>
-              <h1 class="text-3xl font-bold text-flow">Admin Dashboard</h1>
-              <p class="text-flow opacity-90 text-lg">Manage your college</p>
-            </div>
-          </div>
-        </div>
+    <div class="main-content">
+      <header class="welcome-header fade-in-flow">
+        <h1 class="text-3xl font-bold">Admin Dashboard</h1>
+        <p class="text-gray-600">Manage your college</p>
       </header>
 
-      <main class="flowing-grid">
-        <% if (success) { %>
-        <div class="success-flow fade-in-flow" id="success-message">
-          <div class="flex items-center">
-            <i class="fas fa-check-circle text-2xl mr-4"></i>
-            <span class="font-semibold text-lg"><%= success %></span>
-          </div>
-          <button
-            class="text-white hover:text-gray-200"
-            onclick="dismissMessage('success-message')"
-            aria-label="Close success message"
-          >
-            <i class="fas fa-times"></i>
-          </button>
+      <% if (success) { %>
+      <div class="success-flow fade-in-flow" id="success-message">
+        <div class="flex items-center">
+          <i class="fas fa-check-circle text-2xl mr-4"></i>
+          <span class="font-semibold text-lg"><%= success %></span>
         </div>
-        <% } %> <% if (error) { %>
-        <div class="error-flow fade-in-flow" id="error-message">
-          <div class="flex items-center">
-            <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
-            <span class="font-semibold text-lg"><%= error %></span>
-          </div>
-          <button
-            class="text-white hover:text-gray-200"
-            onclick="dismissMessage('error-message')"
-            aria-label="Close error message"
-          >
-            <i class="fas fa-times"></i>
-          </button>
+        <button
+          class="flowing-button"
+          onclick="dismissMessage('success-message')"
+          aria-label="Close success message"
+        >
+          <i class="fas fa-times"></i> Close
+        </button>
+      </div>
+      <% } %> <% if (error) { %>
+      <div class="error-flow fade-in-flow" id="error-message">
+        <div class="flex items-center">
+          <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
+          <span class="font-semibold text-lg"><%= error %></span>
         </div>
-        <% } %>
+        <button
+          class="flowing-button"
+          onclick="dismissMessage('error-message')"
+          aria-label="Close error message"
+        >
+          <i class="fas fa-times"></i> Close
+        </button>
+      </div>
+      <% } %>
 
-        <section class="admin-profile-section">
-          <div class="blob-card admin-blob slide-in-left">
-            <div class="p-8">
-              <h3 class="text-2xl font-bold text-flow mb-4">Admin Profile</h3>
-              <div class="table-container">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>Name</td>
-                      <td>
-                        <%= admin && admin.name ? admin.name : 'Unknown' %>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Email</td>
-                      <td>
-                        <%= admin && admin.email ? admin.email : 'Unknown' %>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+      <section class="section-card fade-in-flow">
+        <h2 class="section-title">
+          <i class="fas fa-user-circle"></i> Admin Profile
+        </h2>
+        <div class="table-container">
+          <table>
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td><%= admin && admin.name ? admin.name : 'Unknown' %></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><%= admin && admin.email ? admin.email : 'Unknown' %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-card fade-in-flow">
+        <h2 class="section-title">
+          <i class="fas fa-users"></i> Users Created
+        </h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Roll Number</th>
+                <th>Course</th>
+                <th>Branch</th>
+                <th>Semester</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+            <tbody id="users-list">
+              <tr>
+                <td colspan="7" class="text-center">
+                  <span class="loading-spinner"></span> Loading recent users...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-4 text-center">
+            <a
+              href="/admin/users?token=<%= token %>"
+              class="flowing-button inline-block"
+            >
+              <i class="fas fa-eye mr-2"></i> View All Users
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card fade-in-flow">
+        <h2 class="section-title">
+          <i class="fas fa-history"></i> Recent Activities
+        </h2>
+        <% if (!activities || activities.length === 0) { %>
+        <p class="text-gray-600 text-center">No recent activities</p>
+        <% } else { %> <% activities.forEach(activity => { %>
+        <div class="activity-item">
+          <div class="flex items-center">
+            <i class="fas fa-info-circle text-primary-blue text-xl mr-4"></i>
+            <div>
+              <p class="font-semibold"><%= activity.message %></p>
+              <p class="text-gray-600 text-sm">
+                <%= new Date(activity.createdAt).toLocaleString() %>
+              </p>
             </div>
           </div>
-        </section>
-
-        <section class="users-section">
-          <div class="blob-card admin-blob slide-in-left">
-            <div class="p-8">
-              <h3 class="text-2xl font-bold text-flow mb-4">Users Created</h3>
-              <div class="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Roll Number</th>
-                      <th>Course</th>
-                      <th>Branch</th>
-                      <th>Semester</th>
-                      <th>Created At</th>
-                    </tr>
-                  </thead>
-                  <tbody id="users-list">
-                    <tr>
-                      <td colspan="7" class="text-center">
-                        <span class="loading-spinner"></span> Loading recent
-                        users...
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="mt-4 text-center">
-                  <a
-                    href="/admin/users?token=<%= token %>"
-                    class="flowing-button inline-block"
-                  >
-                    <i class="fas fa-eye mr-2"></i> View All Users
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="activities-section">
-          <div class="blob-card admin-blob slide-in-left">
-            <div class="p-8">
-              <h3 class="text-2xl font-bold text-flow mb-4">
-                Recent Activities
-              </h3>
-              <ul class="text-flow">
-                <% if (!activities || activities.length === 0) { %>
-                <li class="opacity-70">No recent activities</li>
-                <% } else { %> <% activities.forEach(activity => { %>
-                <li class="mb-2">
-                  <%= activity.message %> - <%= new
-                  Date(activity.createdAt).toLocaleString() %>
-                </li>
-                <% }) %> <% } %>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </main>
+        </div>
+        <% }) %> <% } %>
+      </section>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // Debug admin object
-        // console.log("Admin object:", <%- JSON.stringify(admin || {}) %>);
-
-        // Auto-dismiss messages
         function dismissMessage(id) {
           const message = document.getElementById(id);
           if (message) {
@@ -398,7 +356,6 @@
           setTimeout(() => dismissMessage("success-message"), 5000);
         }
 
-        // Fetch recent users with enhanced error handling
         async function fetchRecentUsers() {
           const usersList = document.getElementById("users-list");
           try {
@@ -411,36 +368,40 @@
             const users = await response.json();
             usersList.innerHTML = "";
             if (users.length === 0) {
-              usersList.innerHTML = '<tr><td colspan="7" class="text-center">No recent users</td></tr>';
+              usersList.innerHTML =
+                '<tr><td colspan="7" class="text-center">No recent users</td></tr>';
             } else {
               users.forEach((user) => {
                 const createdAt = new Date(user.createdAt).toLocaleString();
                 usersList.innerHTML += `
-                  <tr>
-                    <td>${user.name || 'Unknown'}</td>
-                    <td>${user.email || 'Unknown'}</td>
-                    <td>${user.details && user.details.rollNo ? user.details.rollNo : 'N/A'}</td>
-                    <td>${user.course || 'N/A'}</td>
-                    <td>${user.branch || 'N/A'}</td>
-                    <td>${user.semester || 'N/A'}</td>
-                    <td>${createdAt}</td>
-                  </tr>
-                `;
+                <tr>
+                  <td>${user.name || "Unknown"}</td>
+                  <td>${user.email || "Unknown"}</td>
+                  <td>${
+                    user.details && user.details.rollNo
+                      ? user.details.rollNo
+                      : "N/A"
+                  }</td>
+                  <td>${user.course || "N/A"}</td>
+                  <td>${user.branch || "N/A"}</td>
+                  <td>${user.semester || "N/A"}</td>
+                  <td>${createdAt}</td>
+                </tr>
+              `;
               });
             }
           } catch (err) {
             console.error("Error fetching recent users:", err);
             usersList.innerHTML = `
-              <tr>
-                <td colspan="7" class="text-center">
-                  <span class="text-red-400">Error loading recent users: ${err.message}</span>
-                </td>
-              </tr>
-            `;
+            <tr>
+              <td colspan="7" class="text-center">
+                <span class="text-red-400">Error loading recent users: ${err.message}</span>
+              </td>
+            </tr>
+          `;
           }
         }
 
-        // Fetch recent users on page load
         fetchRecentUsers();
       });
     </script>
